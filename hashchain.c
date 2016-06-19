@@ -206,15 +206,16 @@ int cmd_verify(int argc, char **argv)
   void *qhash = base64_decode(argv[2], digest_len);
   void *thash = base64_decode(argv[3], digest_len);
 
-  int res = hash_chain_verify(qhash, thash, hash);
+  bool res = hash_chain_verify(qhash, thash, hash);
   free(qhash);
   free(thash);
   if (res) {
     printf("success\n");
+    return EXIT_SUCCESS;
   } else {
     printf("failure\n");
+    return EXIT_FAILURE;
   }
-  return EXIT_SUCCESS;
 }
 
 /**
