@@ -48,7 +48,7 @@
 struct hash_chain {
   int digest_size;
   int chain_length;
-  unsigned char *data;
+  uint8_t *data;
 };
 
 /**
@@ -64,7 +64,6 @@ struct hash_chain hash_chain_create(void *base, int baselen, const EVP_MD *type,
 {
   EVP_MD_CTX *ctx;
   struct hash_chain output;
-  uint32_t idx = 0;
 
   // Allocate space for our hash chain.
   output.digest_size = EVP_MD_size(type);
@@ -77,9 +76,8 @@ struct hash_chain hash_chain_create(void *base, int baselen, const EVP_MD *type,
   EVP_DigestUpdate(ctx, base, baselen);
   EVP_DigestFinal_ex(ctx, output.data, NULL);
 
-  // For each remaining item in the chain, hash the previous digest and an
-  // index.
-  for (idx = 1; idx < (uint16_t)output.chain_length; idx++) {
+  // For each remaining item in the chain, hash the previous digest.
+  for (int idx = 1; idx < output.chain_length; idx++) {
     EVP_DigestInit_ex(ctx, type, NULL);
     EVP_DigestUpdate(ctx, output.data + (idx - 1) * output.digest_size,
                      output.digest_size);
