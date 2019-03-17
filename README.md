@@ -41,7 +41,7 @@ Say that you have the last two hashes from the previous example:
 
 You can verify with the command:
 
-    $ ./hashchain verify gjZmdTdMNnijpZd0hhkxJSK9/IywQIQ2H5N2BiWC6w0= 5o/+3BTbOTebzIJGTI0bZPorFatbV1zu070qBSx3Z0k=
+    $ ./hashchain verify sha256 gjZmdTdMNnijpZd0hhkxJSK9/IywQIQ2H5N2BiWC6w0= 5o/+3BTbOTebzIJGTI0bZPorFatbV1zu070qBSx3Z0k=
     success
 
 The verify command writes "success" and returns 0 if the hashes verify, and
